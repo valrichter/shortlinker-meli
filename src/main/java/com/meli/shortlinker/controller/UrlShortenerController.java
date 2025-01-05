@@ -5,6 +5,7 @@ import com.meli.shortlinker.model.Url;
 import com.meli.shortlinker.service.UrlShortenerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +33,12 @@ public class UrlShortenerController {
 
     @Operation(summary = "Create short URL")
     @PostMapping("/urls")
-    public Url createShortUrl(@RequestBody UrlDto urlDto) {
+    public Url createShortUrl(@RequestBody @Valid UrlDto urlDto) {
         return urlShortenerService.createShortUrl(urlDto);
     }
 
     @Operation(summary = "Redirect to long URL")
-    @GetMapping("/urls/resolve")
-    // Reemplazar por @PathVariable "/urls/{shortUrl}" (no se encontro solucion)
+    @GetMapping("/urls/resolve") // Reemplazar por @PathVariable "/urls/{shortUrl}" (no se encontro solucion)
     public ResponseEntity<String> resolveShortUrl(@RequestParam String shortUrl) {
         if (shortUrl == null || shortUrl.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Short URL is required");
