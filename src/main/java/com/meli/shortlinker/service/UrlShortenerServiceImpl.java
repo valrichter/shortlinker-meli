@@ -15,7 +15,7 @@ import java.util.Map;
 @Service
 public class UrlShortenerServiceImpl implements UrlShortenerService {
 
-    private static final String DOMAIN_NAME = "http://meli.ly/";
+    private static final String DOMAIN_NAME = "meli.ly/";
 
     @Autowired
     private UrlCacheRepository urlCacheRepository;
