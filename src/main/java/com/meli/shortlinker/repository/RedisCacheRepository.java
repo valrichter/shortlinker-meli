@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Set;
+
 @Repository
 public class RedisCacheRepository implements UrlCacheRepository {
 
@@ -19,6 +21,11 @@ public class RedisCacheRepository implements UrlCacheRepository {
     @Override
     public String getLongUrl(String shortUrl) {
         return redisTemplate.opsForValue().get(shortUrl);
+    }
+
+    @Override
+    public Set<String> getAllUrls() {
+        return redisTemplate.keys("*");
     }
 
     @Override

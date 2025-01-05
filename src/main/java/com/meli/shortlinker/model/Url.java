@@ -1,12 +1,10 @@
 package com.meli.shortlinker.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -43,4 +41,11 @@ public class Url {
     @Setter
     @Column(name = "stats_count", nullable = false, columnDefinition = "integer default 0")
     private int statsCount = 0;
+
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = OffsetDateTime.now();
+        }
+    }
 }

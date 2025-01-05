@@ -2,50 +2,11 @@ package com.meli.shortlinker.service;
 
 import com.meli.shortlinker.dto.UrlDto;
 import com.meli.shortlinker.model.Url;
-import com.meli.shortlinker.repository.UrlCacheRepository;
-import com.meli.shortlinker.repository.UrlRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
+import java.util.Set;
 
-@Service
-public class UrlShortenerService {
-
-    private static final String URL_PREFIX = "http://meli.ly/";
-
-    @Autowired
-    private UrlCacheRepository urlCacheRepository;
-    @Autowired
-    private UrlRepository urlRepository;
-
-    public Url createShortUrl(UrlDto urlDto) {
-        String slug = UUID.randomUUID().toString().substring(0, 8);
-        String shortUrlGenerated = URL_PREFIX + slug;
-        String longUrl = urlDto.getLongUrl();
-        urlCacheRepository.saveShortUrl(shortUrlGenerated, longUrl);
-
-        Url url = Url.builder()
-                .shortUrl(shortUrlGenerated)
-                .slug(slug)
-                .userId(urlDto.getUserId())
-                .longUrlProtocol(urlDto.getLongUrlProtocol())
-                .longUrlDomain(urlDto.getLongUrlDomain())
-                .longUrlPath(urlDto.getLongUrlPath())
-                .isActive(urlDto.isActive())
-                .statsCount(urlDto.getStatsCount())
-                .build();
-
-        return urlRepository.save(url);
-    }
-
-    public String getLongUrl(String shortUrl) {
-        String redisUrl = urlCacheRepository.getLongUrl(shortUrl);
-        Url postgresUrl = urlRepository.findById(shortUrl).orElse(null);
-        assert postgresUrl != null;
-        String postgresUrlLong = postgresUrl.getLongUrlProtocol() + "://" + postgresUrl.getLongUrlDomain() + postgresUrl.getLongUrlPath();
-
-        return "Redis: " + redisUrl + " - Postgres: " + postgresUrlLong;
-    }
+public interface UrlShortenerService {
+    Url createShortUrl(UrlDto urlDto);
+    String getLongUrl(String shortUrl);
+    Set<String> getAllUrls();
 }
