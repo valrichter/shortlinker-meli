@@ -48,4 +48,8 @@ public class Url {
             createdAt = OffsetDateTime.now();
         }
     }
+
+    public String getLongUrl() {
+        return longUrlProtocol + "://" + longUrlDomain + longUrlPath;
+    }
 }
