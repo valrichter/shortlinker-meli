@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Repository
@@ -24,8 +26,14 @@ public class RedisCacheRepository implements UrlCacheRepository {
     }
 
     @Override
-    public Set<String> getAllUrls() {
-        return redisTemplate.keys("*");
+    public Map<String, String> getAllUrls() {
+        Map<String, String> result = new HashMap<>();
+        Set<String> keys = redisTemplate.keys("*");
+        for (String key : keys) {
+            String value = redisTemplate.opsForValue().get(key);
+            result.put(key, value);
+        }
+        return result;
     }
 
     @Override

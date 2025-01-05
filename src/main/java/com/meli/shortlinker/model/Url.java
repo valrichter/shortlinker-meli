@@ -31,7 +31,7 @@ public class Url {
     @Column(name = "long_url_domain", nullable = false, length = 90)
     private String longUrlDomain;
     @Setter
-    @Column(name = "long_url_path", nullable = false, length = 400)
+    @Column(name = "long_url_path", nullable = true, length = 400)
     private String longUrlPath;
     @Setter
     @Column(name = "is_active", nullable = false, columnDefinition = "boolean default true")

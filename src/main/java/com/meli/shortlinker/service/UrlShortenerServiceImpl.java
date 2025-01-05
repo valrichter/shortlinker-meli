@@ -7,8 +7,7 @@ import com.meli.shortlinker.repository.UrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -50,7 +49,7 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
         return "Redis: " + redisUrl + " - Postgres: " + postgresUrlLong;
     }
 
-    public Set<String> getAllUrls() {
+    public Map<String, String> getAllUrlsFromCache() {
         return urlCacheRepository.getAllUrls();
     }
 }
