@@ -1,5 +1,7 @@
 package com.meli.shortlinker.controller;
 
+import com.meli.shortlinker.dto.UrlDto;
+import com.meli.shortlinker.model.Url;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +24,10 @@ public class UrlShortenerController {
         return "Service is up and running over HTTP!";
     }
 
-//    @PostMapping("/create-url")
-//    public Map<String, String> createShortUrl(@RequestBody Map<String, String> request) {
-//        String longUrl = request.get("longUrl");
-//        String shortUrl = urlShortenerService.createShortUrl(longUrl);
-//        Map<String, String> response = new HashMap<>();
-//        response.put("longUrl", longUrl);
-//        response.put("shortUrl", shortUrl);
-//        return response;
-//    }
+    @PostMapping("/create-url")
+    public Url createShortUrl(@RequestBody UrlDto urlDto) {
+        return urlShortenerService.createShortUrl(urlDto);
+    }
 
     @GetMapping("/{shortUrl}")
     public Map<String, String> resolveShortUrl(@PathVariable String shortUrl) {
