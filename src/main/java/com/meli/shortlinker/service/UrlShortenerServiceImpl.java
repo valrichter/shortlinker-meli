@@ -4,9 +4,11 @@ import com.meli.shortlinker.dto.UrlDto;
 import com.meli.shortlinker.model.Url;
 import com.meli.shortlinker.repository.UrlCacheRepository;
 import com.meli.shortlinker.repository.UrlRepository;
+import com.meli.shortlinker.util.SlugGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -22,10 +24,9 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
     private UrlRepository urlRepository;
 
     @Override
-    public Url createShortUrl(UrlDto urlDto) {
-        String slug = UUID.randomUUID().toString().substring(0, 8);
+    public Url createShortUrl(UrlDto urlDto) throws NoSuchAlgorithmException {
+        String slug = SlugGenerator.generate(urlDto.getLongUrl(), urlDto.getUserId(), String.valueOf(urlDto.getCreatedAt()));
         String shortUrlGenerated = DOMAIN_NAME + slug;
-        String longUrl = urlDto.getLongUrl();
 
         Url url = Url.builder()
                 .shortUrl(shortUrlGenerated)
@@ -35,9 +36,11 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
                 .longUrlDomain(urlDto.getLongUrlDomain())
                 .longUrlPath(urlDto.getLongUrlPath())
                 .isActive(urlDto.isActive())
+                .createdAt(urlDto.getCreatedAt())
                 .statsCount(urlDto.getStatsCount())
                 .build();
 
+        String longUrl = urlDto.getLongUrl();
         urlCacheRepository.saveShortUrlAndLongUrl(shortUrlGenerated, longUrl);
         return urlRepository.save(url);
     }
@@ -50,8 +53,11 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
         }
 
         Url url = urlRepository.findById(shortUrl).orElse(null);
-        if (url == null) {
+        if (url == null ) {
             return "URL NOT FOUND: " + shortUrl;
+        }
+        if (!url.isActive()) {
+            return "URL NOT ACTIVE: " + shortUrl;
         }
 
         String longUrl = url.getLongUrl();

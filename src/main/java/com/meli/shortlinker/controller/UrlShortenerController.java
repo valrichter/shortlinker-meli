@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;;
 
@@ -34,7 +35,11 @@ public class UrlShortenerController {
     @Operation(summary = "Create short URL")
     @PostMapping("/urls")
     public Url createShortUrl(@RequestBody @Valid UrlDto urlDto) {
-        return urlShortenerService.createShortUrl(urlDto);
+        try {
+            return urlShortenerService.createShortUrl(urlDto);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Operation(summary = "Redirect to long URL")
