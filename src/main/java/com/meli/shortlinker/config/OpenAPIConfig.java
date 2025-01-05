@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
     info = @Info(
             title = "Shortlinker REST API",
             version = "v1.0.0",
-            description = "Shortlinker API for Mercado Libre (MELI)"
+            description = "Shortlinker for Mercado Libre writen in Java 21 & Spring Boot 3 - 'meli.ly'"
     )
 )
 public class OpenAPIConfig {

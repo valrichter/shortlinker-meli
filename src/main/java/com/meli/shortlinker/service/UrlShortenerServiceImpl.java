@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 public class UrlShortenerServiceImpl implements UrlShortenerService {
@@ -40,8 +39,6 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
                 .statsCount(urlDto.getStatsCount())
                 .build();
 
-        String longUrl = urlDto.getLongUrl();
-        urlCacheRepository.saveShortUrlAndLongUrl(shortUrlGenerated, longUrl);
         return urlRepository.save(url);
     }
 

@@ -1,10 +1,8 @@
 package com.meli.shortlinker.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
