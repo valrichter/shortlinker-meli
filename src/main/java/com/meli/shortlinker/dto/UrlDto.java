@@ -1,6 +1,7 @@
 package com.meli.shortlinker.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.time.OffsetDateTime;
@@ -17,6 +18,7 @@ public class UrlDto {
     private String longUrlProtocol;
     private String longUrlDomain;
     private String longUrlPath;
+    @JsonProperty("active")
     private boolean isActive;
     private OffsetDateTime createdAt;
     private int statsCount;

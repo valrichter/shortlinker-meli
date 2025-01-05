@@ -21,25 +21,25 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
     @Autowired
     private UrlRepository urlRepository;
 
-    public Url createShortUrl(UrlDto urlDto) {
-        String slug = UUID.randomUUID().toString().substring(0, 8);
-        String shortUrlGenerated = URL_PREFIX + slug;
-        String longUrl = urlDto.getLongUrl();
+        public Url createShortUrl(UrlDto urlDto) {
+            String slug = UUID.randomUUID().toString().substring(0, 8);
+            String shortUrlGenerated = URL_PREFIX + slug;
+            String longUrl = urlDto.getLongUrl();
 
-        Url url = Url.builder()
-                .shortUrl(shortUrlGenerated)
-                .slug(slug)
-                .userId(urlDto.getUserId())
-                .longUrlProtocol(urlDto.getLongUrlProtocol())
-                .longUrlDomain(urlDto.getLongUrlDomain())
-                .longUrlPath(urlDto.getLongUrlPath())
-                .isActive(urlDto.isActive())
-                .statsCount(urlDto.getStatsCount())
-                .build();
+            Url url = Url.builder()
+                    .shortUrl(shortUrlGenerated)
+                    .slug(slug)
+                    .userId(urlDto.getUserId())
+                    .longUrlProtocol(urlDto.getLongUrlProtocol())
+                    .longUrlDomain(urlDto.getLongUrlDomain())
+                    .longUrlPath(urlDto.getLongUrlPath())
+                    .isActive(urlDto.isActive())
+                    .statsCount(urlDto.getStatsCount())
+                    .build();
 
-        urlCacheRepository.saveShortUrl(shortUrlGenerated, longUrl);
-        return urlRepository.save(url);
-    }
+            urlCacheRepository.saveShortUrl(shortUrlGenerated, longUrl);
+            return urlRepository.save(url);
+        }
 
     public String getLongUrl(String shortUrl) {
         String redisUrl = urlCacheRepository.getLongUrl(shortUrl);
