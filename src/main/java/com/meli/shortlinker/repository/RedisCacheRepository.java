@@ -15,18 +15,18 @@ public class RedisCacheRepository implements UrlCacheRepository {
     private StringRedisTemplate redisTemplate;
 
     @Override
-    public String saveShortUrl(String shortUrl, String longUrl) {
+    public String saveShortUrlAndLongUrl(String shortUrl, String longUrl) {
         redisTemplate.opsForValue().set(shortUrl, longUrl);
         return shortUrl;
     }
 
     @Override
-    public String getLongUrl(String shortUrl) {
+    public String findLongUrlByShortUrl(String shortUrl) {
         return redisTemplate.opsForValue().get(shortUrl);
     }
 
     @Override
-    public Map<String, String> getAllUrls() {
+    public Map<String, String> findAll() {
         Map<String, String> result = new HashMap<>();
         Set<String> keys = redisTemplate.keys("*");
         for (String key : keys) {

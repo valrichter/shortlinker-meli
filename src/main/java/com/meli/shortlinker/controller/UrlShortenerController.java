@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Map;;
 
 @RestController
@@ -48,6 +49,11 @@ public class UrlShortenerController {
     @GetMapping("/urls/cached")
     public ResponseEntity<Map<String, String>> getAllUrlsFromCache() {
         return new ResponseEntity<>(urlShortenerService.getAllUrlsFromCache(), HttpStatus.OK);
+    }
+
+    @GetMapping("/urls")
+    public ResponseEntity<List<UrlDto>> getAllUrls() {
+        return ResponseEntity.ok(urlShortenerService.getAllUrls());
     }
 
     @Operation(summary = "Service health check")
