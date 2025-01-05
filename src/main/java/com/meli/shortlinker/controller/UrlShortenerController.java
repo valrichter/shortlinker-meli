@@ -24,6 +24,12 @@ public class UrlShortenerController {
         this.urlShortenerService = urlShortenerService;
     }
 
+    @Operation(summary = "Service health check")
+    @GetMapping("/health")
+    public String healthCheck() {
+        return "Service is up and running over HTTP!";
+    }
+
     @PostMapping("/urls")
     public Url createShortUrl(@RequestBody UrlDto urlDto) {
         return urlShortenerService.createShortUrl(urlDto);
@@ -56,9 +62,4 @@ public class UrlShortenerController {
         return ResponseEntity.ok(urlShortenerService.getAllUrls());
     }
 
-    @Operation(summary = "Service health check")
-    @GetMapping("/health")
-    public String healthCheck() {
-        return "Service is up and running over HTTP!";
-    }
 }
