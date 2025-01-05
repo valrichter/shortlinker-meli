@@ -1,0 +1,23 @@
+services:
+  postgres-shortlinker:
+    image: postgres:17.2-alpine3.21
+    environment:
+      - POSTGRES_USER=link
+      - POSTGRES_PASSWORD=secret-link
+      - POSTGRES_DB=shortlinker
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-shortlinker:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d shortlinker -U link" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  redis-shortlinker:
+    image: redis:7.4.1-alpine3.20
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres-shortlinker:
