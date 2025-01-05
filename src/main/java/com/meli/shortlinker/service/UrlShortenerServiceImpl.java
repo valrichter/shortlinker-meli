@@ -13,7 +13,7 @@ import java.util.UUID;
 @Service
 public class UrlShortenerServiceImpl implements UrlShortenerService {
 
-    private static final String URL_PREFIX = "http://meli.ly/";
+    private static final String DOMAIN_NAME = "http://meli.ly/";
 
     @Autowired
     private UrlCacheRepository urlCacheRepository;
@@ -22,7 +22,7 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
 
         public Url createShortUrl(UrlDto urlDto) {
             String slug = UUID.randomUUID().toString().substring(0, 8);
-            String shortUrlGenerated = URL_PREFIX + slug;
+            String shortUrlGenerated = DOMAIN_NAME + slug;
             String longUrl = urlDto.getLongUrl();
 
             Url url = Url.builder()
