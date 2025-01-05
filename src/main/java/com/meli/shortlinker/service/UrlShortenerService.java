@@ -9,7 +9,7 @@ import java.util.UUID;
 @Service
 public class UrlShortenerService {
 
-    private static final String URL_PREFIX = "http://short.ly/";
+    private static final String URL_PREFIX = "http://meli.ly/";
 
     @Autowired
     private UrlCacheRepository urlCacheRepository;
