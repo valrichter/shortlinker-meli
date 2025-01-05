@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Repository
-public class RedisCacheRepository implements UrlCacheRepository {
+public class RedisUrlCacheRepository implements UrlCacheRepository {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -43,4 +43,3 @@ public class RedisCacheRepository implements UrlCacheRepository {
        return "url not found";
     }
 }
-
