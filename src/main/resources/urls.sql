@@ -20,7 +20,7 @@ CREATE INDEX idx_slug_first_char ON urls ((substring(slug from 1 for 1)));
 -- Insertar algunos datos de ejemplo en la tabla "urls"
 INSERT INTO "urls" ("short_url", "slug", "user_id", "long_url_protocol", "long_url_domain", "long_url_path", "is_active")
 VALUES
-  ('meli.ly/25years', '25years', null, 'https', 'www.mercadolibre.com.ar', null, true),
+  ('meli.ly/m25years', 'm25years', null, 'https', 'www.mercadolibre.com.ar', null, true),
   ('meli.ly/rfvt9876', 'rfvt9876', 'f4a7e36c-8f27-43de-91c5-67ab8a61d215', 'https', 'www.linkedin.com', 'in/valrichter', true),
   ('meli.ly/uvwx3456', 'uvwx3456', 'f4a7e36c-8f27-43de-91c5-67ab8a61d215', 'http', 'www.github.com', '/valrichter', true),
   ('meli.ly/abcd1234', 'abcd1234', null, 'https', 'www.example.com', 'products/item123', false),

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class UrlShortenerServiceImpl implements UrlShortenerService {
@@ -45,12 +44,19 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
 
     @Override
     public String getLongUrl(String shortUrl) {
-        String redisUrl = urlCacheRepository.findLongUrlByShortUrl(shortUrl);
-        Url postgresUrl = urlRepository.findById(shortUrl).orElse(null);
-        assert postgresUrl != null;
-        String postgresUrlLong = postgresUrl.getLongUrlProtocol() + "://" + postgresUrl.getLongUrlDomain() + postgresUrl.getLongUrlPath();
+        String cachedLongUrl = urlCacheRepository.findLongUrlByShortUrl(shortUrl);
+        if (cachedLongUrl != null) {
+            return "REDIS CACHED URL: " + cachedLongUrl;
+        }
 
-        return "Redis: " + redisUrl + " - Postgres: " + postgresUrlLong;
+        Url url = urlRepository.findById(shortUrl).orElse(null);
+        if (url == null) {
+            return "URL NOT FOUND: " + shortUrl;
+        }
+
+        String longUrl = url.getLongUrl();
+        urlCacheRepository.saveShortUrlAndLongUrl(shortUrl, longUrl);
+        return "POSTGRES SAVED URL: " + longUrl;
     }
 
     @Override

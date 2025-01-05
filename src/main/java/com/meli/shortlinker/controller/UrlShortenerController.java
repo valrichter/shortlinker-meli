@@ -30,6 +30,7 @@ public class UrlShortenerController {
         return "Service is up and running over HTTP!";
     }
 
+    @Operation(summary = "Create short URL")
     @PostMapping("/urls")
     public Url createShortUrl(@RequestBody UrlDto urlDto) {
         return urlShortenerService.createShortUrl(urlDto);
@@ -57,7 +58,8 @@ public class UrlShortenerController {
         return new ResponseEntity<>(urlShortenerService.getAllUrlsFromCache(), HttpStatus.OK);
     }
 
-    @GetMapping("/urls")
+    @Operation(summary = "Get all saved URLs")
+    @GetMapping("/urls/saved")
     public ResponseEntity<List<UrlDto>> getAllUrls() {
         return ResponseEntity.ok(urlShortenerService.getAllUrls());
     }
