@@ -19,6 +19,7 @@ public class RedisDataLoaderConfig {
             redisTemplate.opsForValue().set("app_name", "UrlShortener");
             redisTemplate.opsForValue().set("redis_initialized", "true");
             redisTemplate.opsForValue().set("short.ly", "http://short.ly/");
+            redisTemplate.opsForValue().set("shortURL", "https://long/url");
 
             System.out.println("Initial data loaded into Redis");
         };
