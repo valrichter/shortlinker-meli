@@ -16,7 +16,7 @@ public class CacheConfigTest {
 
     @Test
     public void testCacheRepositoryBean() {
-        assertNotNull(urlCacheRepository); // Verifica que el bean esta disponible
-        assertTrue(urlCacheRepository instanceof RedisUrlCacheRepository);
+        assertNotNull(urlCacheRepository);
+        assertInstanceOf(RedisUrlCacheRepository.class, urlCacheRepository);
     }
 }

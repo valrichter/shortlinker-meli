@@ -17,13 +17,13 @@ import java.util.Set;
 class RedisCacheRepositoryTest {
 
     @Mock
-    private StringRedisTemplate redisTemplate;  // Mockeamos el StringRedisTemplate
+    private StringRedisTemplate redisTemplate;
 
     @Mock
-    private ValueOperations<String, String> valueOperations;  // Mockeamos ValueOperations para los métodos opsForValue()
+    private ValueOperations<String, String> valueOperations;
 
     @InjectMocks
-    private RedisUrlCacheRepository redisCacheRepository;  // Inyectamos los mocks en la clase que estamos probando
+    private RedisUrlCacheRepository redisCacheRepository;
 
     private String shortUrl;
     private String longUrl;
@@ -33,53 +33,43 @@ class RedisCacheRepositoryTest {
         shortUrl = "short123";
         longUrl = "http://long-url.com";
 
-        // Configuramos redisTemplate para devolver el mock de ValueOperations
         Mockito.when(redisTemplate.opsForValue()).thenReturn(valueOperations);
     }
 
     @Test
     void saveShortUrlAndLongUrl_ShouldSaveSuccessfully() {
-        // Arrange
-        Mockito.doNothing().when(valueOperations).set(shortUrl, longUrl);  // Configuramos el mock para que no haga nada al invocar set()
+        Mockito.doNothing().when(valueOperations).set(shortUrl, longUrl);
 
-        // Act
         String result = redisCacheRepository.saveShortUrlAndLongUrl(shortUrl, longUrl);
 
-        // Assert
-        assertEquals(shortUrl, result);  // Verificamos que se devuelva el shortUrl
-        Mockito.verify(valueOperations).set(shortUrl, longUrl);  // Verificamos que el método set haya sido llamado
+        assertEquals(shortUrl, result);
+        Mockito.verify(valueOperations).set(shortUrl, longUrl);
     }
 
     @Test
     void findLongUrlByShortUrl_ShouldReturnLongUrl() {
-        // Arrange
-        Mockito.when(valueOperations.get(shortUrl)).thenReturn(longUrl);  // Configuramos el mock para devolver longUrl cuando se llama get()
+        Mockito.when(valueOperations.get(shortUrl)).thenReturn(longUrl);
 
-        // Act
         String result = redisCacheRepository.findLongUrlByShortUrl(shortUrl);
 
-        // Assert
-        assertEquals(longUrl, result);  // Verificamos que se devuelva el longUrl
-        Mockito.verify(valueOperations).get(shortUrl);  // Verificamos que el método get haya sido llamado
+        assertEquals(longUrl, result);
+        Mockito.verify(valueOperations).get(shortUrl);
     }
 
     @Test
     void findAll_ShouldReturnAllUrls() {
-        // Arrange
         Map<String, String> redisData = new HashMap<>();
         redisData.put(shortUrl, longUrl);
 
         Set<String> keys = Set.of(shortUrl);
-        Mockito.when(redisTemplate.keys("*")).thenReturn(keys);  // Configuramos el mock para devolver las keys
-        Mockito.when(valueOperations.get(shortUrl)).thenReturn(longUrl);  // Configuramos el mock para devolver longUrl
+        Mockito.when(redisTemplate.keys("*")).thenReturn(keys);
+        Mockito.when(valueOperations.get(shortUrl)).thenReturn(longUrl);
 
-        // Act
         Map<String, String> result = redisCacheRepository.findAll();
 
-        // Assert
-        assertEquals(redisData, result);  // Verificamos que se devuelvan todos los URLs
-        Mockito.verify(redisTemplate).keys("*");  // Verificamos que se haya llamado keys()
-        Mockito.verify(valueOperations).get(shortUrl);  // Verificamos que se haya llamado get() para cada key
+        assertEquals(redisData, result);
+        Mockito.verify(redisTemplate).keys("*");
+        Mockito.verify(valueOperations).get(shortUrl);
     }
 
 }
