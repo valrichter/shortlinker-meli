@@ -28,7 +28,7 @@ public class UrlDto {
     @JsonProperty(value = "active", defaultValue = "true")
     private boolean isActive;
     @JsonIgnore
-    private OffsetDateTime createdAt;
+    private OffsetDateTime createdAt = OffsetDateTime.now();
     @JsonIgnore
     private int statsCount;
 

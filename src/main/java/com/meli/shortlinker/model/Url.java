@@ -42,13 +42,6 @@ public class Url {
     @Column(name = "stats_count", nullable = false, columnDefinition = "integer default 0")
     private int statsCount = 0;
 
-    @PrePersist
-    public void prePersist() {
-        if (createdAt == null) {
-            createdAt = OffsetDateTime.now();
-        }
-    }
-
     public String getLongUrl() {
         return longUrlProtocol + "://" + longUrlDomain + longUrlPath;
     }
