@@ -1,9 +1,11 @@
 global:
-  scrape_interval: 15s  # Intervalo de recolección de métricas
+  scrape_interval: 5s
 
 scrape_configs:
   - job_name: "prometheus"
     static_configs:
+      # IP de docker local en linux.
+      # Comando: ip addr show docker0. Ej.Output: "inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0"
       - targets: [ "172.17.0.1:9090" ]
 
   - job_name: "node_exporter"
@@ -13,4 +15,6 @@ scrape_configs:
   - job_name: 'shortlinker'
     metrics_path: '/actuator/prometheus'
     static_configs:
+      # IP de su máquina local
+      # Comando: hostname -I. Ej.Output: "192.168.1.33 172.17.0.1"
       - targets: ['192.168.1.33:8085']
