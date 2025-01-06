@@ -75,3 +75,6 @@ gastar dinero en la prueba, mockear lo que no pueda obtenerse gratis).
 - Implementar test para el resto de las clases
 - Implementar test de performance (5000 rpm)
 - Subir API a un host público
+
+# Desing & Implementation
+![melily](https://github.com/user-attachments/assets/05297f40-3a74-4f15-8077-6a9e405e6ea8)
