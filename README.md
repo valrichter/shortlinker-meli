@@ -32,7 +32,7 @@ gastar dinero en la prueba, mockear lo que no pueda obtenerse gratis).
 3. Configurar el SDK del proyecto a Java 21 en tu IDE
 4. Descargar las dependencias de maven
 5. En la termina ejecutar el comando `docker compose up -d`
-6. API disponible en `http://localhost:8081`
+6. API disponible en `http://localhost:8081/swagger-ui/index.html#/`
 7. Para eliminar los contenedores ejecutar `docker compose down -v`
 
 ##### Credenciales
