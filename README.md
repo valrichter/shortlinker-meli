@@ -1,5 +1,9 @@
 # MELI - Shortlinker - 'mely.ly'
 
+## Desing & Implementation -> [Excalidraw link](https://excalidraw.com/#json=Rf8BNCTMMEm5-IaBivjp5,y-ptga1yDVIlomG0gfd6NA)  
+
+![melily](https://github.com/user-attachments/assets/05297f40-3a74-4f15-8077-6a9e405e6ea8)
+
 Necesitamos hacer un urlshortener tipo goo.gl o bitly para publicar promociones en twitter.
 Armar la arquitectura de la solución que satisfaga los siguientes requisitos:
 - Las urls tienen una vigencia indefinida.
@@ -75,7 +79,3 @@ gastar dinero en la prueba, mockear lo que no pueda obtenerse gratis).
 - Implementar test para el resto de las clases
 - Implementar test de performance (5000 rpm)
 - Subir API a un host público
-
-# Desing & Implementation -> [Excalidraw link](https://excalidraw.com/#json=Rf8BNCTMMEm5-IaBivjp5,y-ptga1yDVIlomG0gfd6NA)  
-
-![melily](https://github.com/user-attachments/assets/05297f40-3a74-4f15-8077-6a9e405e6ea8)
